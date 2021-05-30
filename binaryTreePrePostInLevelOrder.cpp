@@ -31,7 +31,7 @@ void printPreOrder(node *root){
 	{
 		return;
 	}
-	cout<<root->data;
+	cout<<root->data<<" ";
 	printPreOrder(root->left);
 	printPreOrder(root->right);
 }
@@ -45,7 +45,7 @@ void printInOrder(node* root)
 	cout<<root->data<<" ";
 	printInOrder(root->right);
 }
-void printPostOrder()
+void printPostOrder(node *root)
 {
 	if(root==NULL)
 	{
@@ -55,6 +55,33 @@ void printPostOrder()
 	printPostOrder(root->right);
 	cout<<root->data<<" ";
 }
+
+int height(node *root){
+	if(root==NULL){
+		return 0;
+	}
+	int leftSubtree = height(root->left);
+	int rightSubtree = height(root->right);
+	return max(leftSubtree,rightSubtree)+1;
+}
+void printkthLevel(node* root,int k){
+	if(root==NULL){
+		return;
+	}
+	if(k==1){
+		cout<<root->data<<" ";
+		return;
+	}
+	printkthLevel(root->left,k-1);
+	printkthLevel(root->right,k-1);
+}
+void printAllLevels(node* root){
+	int H=height(root);
+	for(int i=0;i<H;i++){
+		printkthLevel(root,i);
+		cout<<endl;
+	}
+}
 int main(){
 	node* root = buildBT();
 	printPreOrder(root);
@@ -62,6 +89,8 @@ int main(){
 	printPostOrder(root);
 	cout<<"\n";
 	printInOrder(root);
-
+	cout<<"\n";
+	cout<<height(root)<<"\n";
+	printAllLevels(root);
 	return 0;
 }
