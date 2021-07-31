@@ -1,3 +1,5 @@
+//O(n2)
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -26,7 +28,10 @@ int diameter(node* root){
 	if(root == NULL){
 		return 0;
 	}
-	return 1 + height(root->left) + height(root->right);
+	int op1 = height(root->left) + height(root->right);
+	int op2 = diameter(root->left);
+	int op3 = diameter(root->right);
+	return max(op1, max(op2,op3));
 }
 
 
